@@ -1,4 +1,4 @@
-#Command to anaconda to AWS  EC-2- instance
+#Command to install anaconda, spark to AWS  EC-2- instance
 $ wget http://repo.continuum.io/archive/Anaconda3-4.1.1-Linux-x86_64.sh
 $ bash Anaconda3-4.1.1-Linux-x86_64.sh
 
