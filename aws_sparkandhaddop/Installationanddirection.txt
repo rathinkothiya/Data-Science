@@ -1,0 +1,75 @@
+#Command to anaconda to AWS  EC-2- instance
+$ wget http://repo.continuum.io/archive/Anaconda3-4.1.1-Linux-x86_64.sh
+$ bash Anaconda3-4.1.1-Linux-x86_64.sh
+
+#check the python version
+$ which python
+
+#if you cant find python version export path
+$ export PATH=/home/ubuntu/anaconda3/bin:$PATH
+or
+$ source .bashrc
+
+
+#configure jupyter notebook inorder access it through ec2 and connect with ssh
+$ jupyter notebook --generate-config
+$ mkdir certs
+$ cd certs
+$ sudo openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
+$ cd ~/.jupyter/
+$ vi jupyter_notebook_config.py
+
+---------presss i to insert------insert anywhere---------------------------------------------
+c=get_config()
+c.NotebookApp.certfile = u'/home/ubuntu/certs/mycert.pem'
+c.NotebookApp.ip='*'
+c.NotebookApp.open_browser=False
+c.NotebookApp.port=8888
+---------------after entering this data. press esc key and type :wq and press enter ----------
+
+-----open chrome and type---
+https://your_hostname:8888
+
+
+or
+#If it does nt work then use this commands
+$ cd ..
+$ openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mykey.key -out mycert.pem
+$ jupyter notebook --certfile=mycert.pem --keyfile mykey.key
+
+-----open chrome and type---
+https://your_hostname:8888
+
+you can access notebook
+
+
+
+#Install java
+$ sudo apt-get install default-jre
+$ sudo apt-get install scala
+check version
+$ scala -version
+
+--if you cant install scala
+$ sudo apt-get update 
+$ sudo apt-get install scala
+
+#library to connect python to java
+$ export PATH=$PATH:$HOME/anaconda3/bin
+$ conda install pip
+$ which pip
+$ pip install py4j
+
+#install spark and haddop
+$ wget http://archive.apache.org/dist/spark/spark-2.0.0/spark-2.0.0-bin-hadoop2.7.tgz
+$ sudo tar -zxvf spark-2.0.0-bin-hadoop2.7.tgz
+
+#location of spark
+$ export SPARK_HOME='/home/ubuntu/spark-2.0.0-bin-hadoop2.7'
+$ export PATH=$SPARK_HOME:$PATH
+$ export PYTHONPATH=$SPARK_HOME/python:$PYTHONPATH
+
+Use command to acess notebook
+$ jupyter notebook --certfile=mycert.pem --keyfile mykey.key
+
+
